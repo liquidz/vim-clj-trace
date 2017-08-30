@@ -19,7 +19,8 @@ function! s:trace_eval(...) abort
 endfunction
 
 function! trace#trace_vars(var) abort
-  echo s:trace_eval("trace-vars %s", a:var)
+  let var = (a:var == '' ? expand('<cword>') : a:var)
+  echo s:trace_eval("trace-vars %s", var)
 endfunction
 
 function! trace#trace_ns() abort
@@ -31,7 +32,8 @@ function! trace#untrace_ns() abort
 endfunction
 
 function! trace#untrace_vars(var) abort
-  echo s:trace_eval("untrace-vars %s", a:var)
+  let var = (a:var == '' ? expand('<cword>') : a:var)
+  echo s:trace_eval("untrace-vars %s", var)
 endfunction
 
 let &cpo = s:save_cpo
