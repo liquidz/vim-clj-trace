@@ -1,10 +1,10 @@
 let s:save_cpo = &cpo
 set cpo&vim
 
-let g:trace#name = 'clojure.tools.trace'
+let g:cljtrace#name = 'clojure.tools.trace'
 
 function! s:require_tools_trace() abort
-  call fireplace#eval(printf("(require '%s)", g:trace#name))
+  call fireplace#eval(printf("(require '%s)", g:cljtrace#name))
 endfunction
 
 function! s:trace_eval(...) abort
@@ -15,23 +15,23 @@ function! s:trace_eval(...) abort
   endif
 
   call s:require_tools_trace()
-  return fireplace#eval(printf("(%s/%s)", g:trace#name, arg))
+  return fireplace#eval(printf("(%s/%s)", g:cljtrace#name, arg))
 endfunction
 
-function! trace#trace_vars(var) abort
+function! cljtrace#trace_vars(var) abort
   let var = (a:var == '' ? expand('<cword>') : a:var)
   echo s:trace_eval("trace-vars %s", var)
 endfunction
 
-function! trace#trace_ns() abort
+function! cljtrace#trace_ns() abort
   echo s:trace_eval("trace-ns *ns*")
 endfunction
 
-function! trace#untrace_ns() abort
+function! cljtrace#untrace_ns() abort
   echo s:trace_eval("untrace-ns *ns*")
 endfunction
 
-function! trace#untrace_vars(var) abort
+function! cljtrace#untrace_vars(var) abort
   let var = (a:var == '' ? expand('<cword>') : a:var)
   echo s:trace_eval("untrace-vars %s", var)
 endfunction
